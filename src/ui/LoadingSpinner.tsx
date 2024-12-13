@@ -1,12 +1,10 @@
 import React from 'react';
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
+import { useAppStore } from '../store/AppStore';
 
-interface LoadingSpinnerProps {
-  loading: boolean; // Determines whether the spinner is visible
-}
-
-const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({ loading }) => {
-  if (!loading) return null; // Render nothing if not loading
+const LoadingSpinner: React.FC = () => {
+  const { isLoading } = useAppStore();
+  if (!isLoading) return null; // Render nothing if not loading
 
   return (
     <View style={styles.overlay}>

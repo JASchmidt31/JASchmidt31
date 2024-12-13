@@ -1,6 +1,7 @@
 {
   "expo": {
     "name": "Fit13",
+    "scheme": "fit13-scheme",
     "slug": "Fit13",
     "version": "1.0.0",
     "orientation": "portrait",

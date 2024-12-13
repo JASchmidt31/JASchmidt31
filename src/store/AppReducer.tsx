@@ -5,7 +5,7 @@ export const AppReducer = (state: AppStoreState, action: AppAction): AppStoreSta
   switch (action.type) {
     case AppActionType.SET_DATA:
       switch (action.payload.dataType) {
-        case DataType.PRORGRAM:
+        case DataType.PROGRAM:
           return {
             ...state,
             programs: action.payload.data

@@ -1,7 +1,7 @@
 import { Program } from './program/Program';
 
 export enum DataType {
-  PRORGRAM = 'PRORGRAM'
+  PROGRAM = 'PROGRAM'
 }
 
-export type DataPayloadType = { dataType: DataType.PRORGRAM; data: Program[] };
+export type DataPayloadType = { dataType: DataType.PROGRAM; data: Program[] };

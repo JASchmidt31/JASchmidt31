@@ -1,16 +1,15 @@
 import React from 'react';
 import { Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { AppActionType } from '../store/AppAction';
+import { useAppDispatch, useAppStore } from '../store/AppStore';
 
-interface ErrorOverlayProps {
-  error: string | null; // The error message or null
-  setError: (value: null) => void; // Function to reset the error
-}
-
-const ErrorOverlay: React.FC<ErrorOverlayProps> = ({ error, setError }) => {
+const ErrorOverlay: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const { error } = useAppStore();
   if (!error) return null; // Render nothing if there's no error
 
   const handleOkPress = () => {
-    setError(null); // Reset the error
+    dispatch({ type: AppActionType.SET_ERROR, payload: { error: null } }); // Reset the error
   };
 
   return (

@@ -1,26 +1,44 @@
+import { useCallback } from 'react';
 import { DataType } from '../services/DataTypes';
 import { getPrograms } from '../services/program/ProgramService';
 import { AppActionType } from '../store/AppAction';
 import { useAppDispatch } from '../store/AppStore';
 
-const useFethch = (dataType: DataType) => {
-  const dispatch = useAppDispatch();
+const useFetch = () => {
+  const dispatch = useAppDispatch(); // Call the hook at the top level
 
-  let fetchFunction;
-  switch (dataType) {
-    case DataType.PRORGRAM:
-      fetchFunction = getPrograms;
-  }
+  const getFetchFunction = (dataType: DataType): (() => Promise<any>) | null => {
+    switch (dataType) {
+      case DataType.PROGRAM:
+        return getPrograms;
+      default:
+        return null; // Return null for unsupported data types
+    }
+  };
 
-  const executeFetchFunction = async (fetchFunction: () => Promise<any>, dataType: DataType) => {
+  const fetchData = useCallback(async (dataType: DataType) => {
+    const fetchFunction = getFetchFunction(dataType);
+
+    if (!fetchFunction) {
+      console.error(`No fetch function available for DataType: ${dataType}`);
+      dispatch({ type: AppActionType.SET_ERROR, payload: { error: 'Invalid data type' } });
+      return;
+    }
+
+    dispatch({ type: AppActionType.SET_LOADING, payload: { isLoading: true } }); // Set loading state
+
     try {
       const data = await fetchFunction();
       dispatch({ type: AppActionType.SET_DATA, payload: { dataType, data } });
     } catch (err) {
-      dispatch({ type: AppActionType.SET_ERROR, payload: { error: err instanceof Error ? err.message : 'An error occurred' } });
+      const errorMessage = err instanceof Error ? err.message : 'An error occurred';
+      dispatch({ type: AppActionType.SET_ERROR, payload: { error: errorMessage } });
     } finally {
-      dispatch({ type: AppActionType.SET_LOADING, payload: { isLoading: false } });
+      dispatch({ type: AppActionType.SET_LOADING, payload: { isLoading: false } }); // Reset loading state
     }
-  };
+  }, []);
+
+  return { fetchData }; // Return the fetchData function
 };
-export default useFethch;
+
+export default useFetch;
