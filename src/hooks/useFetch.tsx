@@ -22,27 +22,30 @@ const useFetch = () => {
     }
   };
 
-  const fetchData = useCallback(async (dataType: DataType) => {
-    const fetchFunction = getFetchFunction(dataType);
+  const fetchData = useCallback(
+    async (dataType: DataType) => {
+      const fetchFunction = getFetchFunction(dataType);
 
-    if (!fetchFunction) {
-      console.error(`No fetch function available for DataType: ${dataType}`);
-      dispatch({ type: AppActionType.SET_ERROR, payload: { error: 'Invalid data type' } });
-      return;
-    }
+      if (!fetchFunction) {
+        console.error(`No fetch function available for DataType: ${dataType}`);
+        dispatch({ type: AppActionType.SET_ERROR, payload: { error: 'Invalid data type' } });
+        return;
+      }
 
-    dispatch({ type: AppActionType.SET_LOADING, payload: { isLoading: true } }); // Set loading state
+      dispatch({ type: AppActionType.SET_LOADING, payload: { isLoading: true } }); // Set loading state
 
-    try {
-      const data = await fetchFunction();
-      dispatch({ type: AppActionType.SET_DATA, payload: { dataType, data } });
-    } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'An error occurred';
-      dispatch({ type: AppActionType.SET_ERROR, payload: { error: errorMessage } });
-    } finally {
-      dispatch({ type: AppActionType.SET_LOADING, payload: { isLoading: false } }); // Reset loading state
-    }
-  }, []);
+      try {
+        const data = await fetchFunction();
+        dispatch({ type: AppActionType.SET_DATA, payload: { dataType, data } });
+      } catch (err) {
+        const errorMessage = err instanceof Error ? err.message : 'An error occurred';
+        dispatch({ type: AppActionType.SET_ERROR, payload: { error: errorMessage } });
+      } finally {
+        dispatch({ type: AppActionType.SET_LOADING, payload: { isLoading: false } }); // Reset loading state
+      }
+    },
+    [dispatch]
+  );
 
   return { fetchData }; // Return the fetchData function
 };

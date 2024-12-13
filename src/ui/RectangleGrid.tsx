@@ -29,8 +29,8 @@ const styles = StyleSheet.create({
     padding: 10
   },
   rectangle: {
-    flex: 1, // Makes items stretch to evenly fill space
-    aspectRatio: 1.5, // Ensures consistent height-to-width ratio
+    width: '45%', // Adjust the percentage to control the rectangle width
+    aspectRatio: 1.5, // Maintains the consistent height-to-width ratio
     backgroundColor: '#4CAF50',
     margin: 5,
     justifyContent: 'center',

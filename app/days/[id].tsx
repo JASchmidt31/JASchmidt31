@@ -27,6 +27,10 @@ const DayDetails = () => {
   );
 };
 
+export const options = {
+  title: 'Nanu'
+};
+
 export default DayDetails;
 
 const styles = StyleSheet.create({

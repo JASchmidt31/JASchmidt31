@@ -26,7 +26,6 @@ const ProgramDetails = () => {
     </SafeAreaView>
   );
 };
-
 export default ProgramDetails;
 
 const styles = StyleSheet.create({
