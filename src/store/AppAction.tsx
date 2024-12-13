@@ -1,4 +1,6 @@
 import { DataPayloadType } from '../services/DataTypes';
+import { Day } from '../services/day/Day';
+import { Execution } from '../services/execution/Execution';
 import { Program } from '../services/program/Program';
 
 export type AppAction =
@@ -18,11 +20,15 @@ export interface AppStoreState {
   isLoading: boolean;
   error: string | null;
   programs: Program[];
+  days: Day[];
+  executions: Execution[];
 }
 
 export const initialAppState: AppStoreState = {
   isLoggedIn: true,
   isLoading: false,
   error: null,
-  programs: []
+  programs: [],
+  days: [],
+  executions: []
 };

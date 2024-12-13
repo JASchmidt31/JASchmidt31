@@ -6,14 +6,14 @@ import { DataType } from '../../src/services/DataTypes';
 import { useAppStore } from '../../src/store/AppStore';
 import RectangleGrid from '../../src/ui/RectangleGrid';
 
-const ProgramDetails = () => {
+const DayDetails = () => {
   const { id } = useLocalSearchParams(); // Get the dynamic ID from the URL
   const { fetchData } = useFetch();
-  const { days } = useAppStore();
+  const { executions } = useAppStore();
   const router = useRouter();
 
   useEffect(() => {
-    fetchData(DataType.DAY);
+    fetchData(DataType.EXECUTION);
   }, [fetchData]);
 
   const handlePress = (id: number) => {
@@ -22,12 +22,12 @@ const ProgramDetails = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <RectangleGrid data={days.filter((d) => d.program === Number(id))} onPress={handlePress} />
+      <RectangleGrid data={executions.filter((e) => e.day === Number(id))} onPress={handlePress} />
     </SafeAreaView>
   );
 };
 
-export default ProgramDetails;
+export default DayDetails;
 
 const styles = StyleSheet.create({
   container: {

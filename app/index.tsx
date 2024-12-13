@@ -38,24 +38,5 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     padding: 16
-  },
-  centered: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  programItem: {
-    padding: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ccc'
-  },
-  programName: {
-    fontSize: 16,
-    fontWeight: 'bold'
-  },
-  errorText: {
-    color: 'red',
-    fontSize: 18,
-    textAlign: 'center'
   }
 });

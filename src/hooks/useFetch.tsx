@@ -1,5 +1,7 @@
 import { useCallback } from 'react';
 import { DataType } from '../services/DataTypes';
+import { getDays } from '../services/day/DayService';
+import { getExecutions } from '../services/execution/ExecutionService';
 import { getPrograms } from '../services/program/ProgramService';
 import { AppActionType } from '../store/AppAction';
 import { useAppDispatch } from '../store/AppStore';
@@ -11,6 +13,10 @@ const useFetch = () => {
     switch (dataType) {
       case DataType.PROGRAM:
         return getPrograms;
+      case DataType.DAY:
+        return getDays;
+      case DataType.EXECUTION:
+        return getExecutions;
       default:
         return null; // Return null for unsupported data types
     }

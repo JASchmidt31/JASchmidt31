@@ -10,6 +10,16 @@ export const AppReducer = (state: AppStoreState, action: AppAction): AppStoreSta
             ...state,
             programs: action.payload.data
           };
+        case DataType.DAY:
+          return {
+            ...state,
+            days: action.payload.data
+          };
+        case DataType.EXECUTION:
+          return {
+            ...state,
+            executions: action.payload.data
+          };
       }
     case AppActionType.SET_ERROR:
       return {
