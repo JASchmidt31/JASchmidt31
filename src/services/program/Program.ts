@@ -1,13 +1,11 @@
-import { ProgramData } from "./ProgramType";
+import { ProgramData } from './ProgramType';
 
 export class Program {
+  id: number;
+  name: string;
 
-    id: number
-    name: string
-
-    constructor(data : ProgramData) {
-        this.id = data.id
-        this.name = data.name
-    }
-
+  constructor(data: ProgramData) {
+    this.id = data.id;
+    this.name = data.name;
+  }
 }

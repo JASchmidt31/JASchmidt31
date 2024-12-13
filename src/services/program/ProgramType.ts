@@ -1,12 +1,12 @@
-import { z } from "zod";
+import { z } from 'zod';
 
-export const ProgramSchema = z.object({
+export const ProgramSchema = z
+  .object({
     id: z.number(),
     name: z.string()
-}).passthrough()
+  })
+  .passthrough();
 
-export const ProgramResponseSchema = z.array(
-    ProgramSchema
-)
+export const ProgramResponseSchema = z.array(ProgramSchema);
 
-export type ProgramData = z.infer<typeof ProgramSchema>
+export type ProgramData = z.infer<typeof ProgramSchema>;

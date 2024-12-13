@@ -1,8 +1,10 @@
-import { StatusBar } from 'expo-status-bar';
-import { useEffect, useState } from 'react';
-import { ActivityIndicator, FlatList, StyleSheet, Text, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { SafeAreaView, StyleSheet } from 'react-native';
 import { Program } from './src/services/program/Program';
 import { getPrograms } from './src/services/program/ProgramService';
+import ErrorOverlay from './src/ui/ErrorOverlay';
+import LoadingSpinner from './src/ui/LoadingSpinner';
+import RectangleGrid from './src/ui/RectangleGrid';
 
 export default function App() {
   const [programs, setPrograms] = useState<Program[]>([]);
@@ -20,67 +22,48 @@ export default function App() {
         setIsLoading(false);
       }
     };
-
     fetchPrograms();
   }, []);
 
-  if (isLoading) {
-    return (
-      <View style={styles.centered}>
-        <ActivityIndicator size="large" color="#0000ff" />
-      </View>
-    );
-  }
-
-  if (error) {
-    return (
-      <View style={styles.centered}>
-        <Text style={styles.errorText}>{error}</Text>
-      </View>
-    );
-  }
+  const handlePress = (id: number) => {
+    console.log(`Rectangle with ID: ${id} pressed`);
+  };
 
   return (
-    <View style={styles.container}>
-      <FlatList
-        data={programs}
-        keyExtractor={(item) => item.id.toString()} // Assuming `id` is unique
-        renderItem={({ item }) => <ProgramItem program={item} />}
-      />
-      <StatusBar style="auto" />
-    </View>
+    <>
+      <ErrorOverlay error={error} setError={setError} />
+      <LoadingSpinner loading={isLoading} />
+
+      <SafeAreaView style={styles.container}>
+        <RectangleGrid data={programs} onPress={handlePress} />
+      </SafeAreaView>
+    </>
   );
 }
-
-const ProgramItem = ({ program }: { program: Program }) => (
-  <View style={styles.programItem}>
-    <Text style={styles.programName}>{program.name}</Text>
-  </View>
-);
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    padding: 16,
+    padding: 16
   },
   centered: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   programItem: {
     padding: 16,
     borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
+    borderBottomColor: '#ccc'
   },
   programName: {
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: 'bold'
   },
   errorText: {
     color: 'red',
     fontSize: 18,
-    textAlign: 'center',
-  },
+    textAlign: 'center'
+  }
 });

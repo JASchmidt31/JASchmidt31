@@ -15,12 +15,7 @@ const ClickableList: React.FC<ClickableListProps> = ({ data, onItemPress }) => {
 
   return (
     <View style={styles.container}>
-      <FlatList
-        data={data}
-        renderItem={renderItem}
-        keyExtractor={(item, index) => index.toString()}
-        contentContainerStyle={styles.list}
-      />
+      <FlatList data={data} renderItem={renderItem} keyExtractor={(item, index) => index.toString()} contentContainerStyle={styles.list} />
     </View>
   );
 };
@@ -28,10 +23,10 @@ const ClickableList: React.FC<ClickableListProps> = ({ data, onItemPress }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 10,
+    padding: 10
   },
   list: {
-    paddingVertical: 10,
+    paddingVertical: 10
   },
   item: {
     backgroundColor: '#f9f9f9',
@@ -41,12 +36,12 @@ const styles = StyleSheet.create({
     shadowColor: '#000',
     shadowOpacity: 0.1,
     shadowRadius: 5,
-    elevation: 3,
+    elevation: 3
   },
   text: {
     fontSize: 16,
-    color: '#333',
-  },
+    color: '#333'
+  }
 });
 
 export default ClickableList;
