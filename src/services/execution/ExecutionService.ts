@@ -4,7 +4,11 @@ import { ExecutionResponseSchema, ExecutionSchema } from './ExecutionType';
 
 export async function getExecutions(): Promise<Execution[]> {
   try {
-    const { data: executions, error: fetchError } = await supabase.from('execution').select();
+    const { data: executions, error: fetchError } = await supabase.from('execution').select(`
+      *,
+      exercise (*)
+    `);
+
     if (fetchError) {
       throw new Error(`Database fetch error: ${fetchError.message}`);
     }

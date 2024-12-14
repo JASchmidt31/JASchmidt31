@@ -4,6 +4,6 @@ export class ExecutionSet {
 
   constructor(data: ExecutionSet) {
     this.reps = data.reps;
-    this.weight = data.reps;
+    this.weight = data.weight;
   }
 }

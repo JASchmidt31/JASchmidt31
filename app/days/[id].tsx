@@ -1,34 +1,39 @@
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useLocalSearchParams } from 'expo-router';
 import React, { useEffect } from 'react';
-import { SafeAreaView, StyleSheet } from 'react-native';
+import { Dimensions, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import useFetch from '../../src/hooks/useFetch';
 import { DataType } from '../../src/services/DataTypes';
+import { Execution } from '../../src/services/execution/Execution';
+import { ExecutionSet } from '../../src/services/execution/ExecutionSet';
 import { useAppStore } from '../../src/store/AppStore';
-import RectangleGrid from '../../src/ui/RectangleGrid';
+import Carousel from '../../src/ui/Carousel';
+import SetView from '../../src/ui/SetView';
 
 const DayDetails = () => {
   const { id } = useLocalSearchParams(); // Get the dynamic ID from the URL
   const { fetchData } = useFetch();
   const { executions } = useAppStore();
-  const router = useRouter();
 
   useEffect(() => {
     fetchData(DataType.EXECUTION);
   }, [fetchData]);
 
-  const handlePress = (id: number) => {
-    router.push(`/days/${id}`);
+  const renderExecutionSlide = ({ item }: { item: Execution }) => {
+    return (
+      <View style={[styles.slide, { backgroundColor: '#958b95' }]}>
+        <Text>{item.exercise.name}</Text>
+        {item.sets.map((set: ExecutionSet, index) => (
+          <SetView data={set} index={index} />
+        ))}
+      </View>
+    );
   };
 
   return (
     <SafeAreaView style={styles.container}>
-      <RectangleGrid data={executions.filter((e) => e.day === Number(id))} onPress={handlePress} />
+      <Carousel data={executions.filter((e) => e.day === Number(id))} renderItem={renderExecutionSlide} />
     </SafeAreaView>
   );
-};
-
-export const options = {
-  title: 'Nanu'
 };
 
 export default DayDetails;
@@ -36,7 +41,16 @@ export default DayDetails;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    padding: 16
+    backgroundColor: '#fff'
+  },
+  slide: {
+    width: Dimensions.get('window').width,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20
+  },
+  slideText: {
+    fontSize: 24,
+    color: '#fff'
   }
 });

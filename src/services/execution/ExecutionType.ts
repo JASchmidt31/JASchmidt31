@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { ExerciseSchema } from '../exercise/ExerciseType';
 
 export const ExecutionSetSchema = z.object({
   reps: z.number(),
@@ -9,7 +10,7 @@ export const ExecutionSchema = z
   .object({
     id: z.number(),
     day: z.number(),
-    exercise: z.number(),
+    exercise: ExerciseSchema,
     sets: z.object({
       sets: z.array(ExecutionSetSchema)
     })

@@ -2,7 +2,7 @@ import { Stack } from 'expo-router';
 import { useAppStore } from '../store/AppStore';
 
 const CustomStack: React.FC = () => {
-  const { programs } = useAppStore();
+  const { programs, days } = useAppStore();
 
   return (
     <Stack>
@@ -14,6 +14,15 @@ const CustomStack: React.FC = () => {
           const { id } = route.params;
           const program = programs.find((p) => p.id === Number(id));
           return { title: program?.name || 'Program Overview' };
+        }}
+      />
+      <Stack.Screen
+        name="days/[id]"
+        options={({ route }) => {
+          //@ts-ignore
+          const { id } = route.params;
+          const day = days.find((d) => d.id === Number(id));
+          return { title: day?.name || 'Trainigsday' };
         }}
       />
     </Stack>
