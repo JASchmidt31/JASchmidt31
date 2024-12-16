@@ -1,5 +1,5 @@
 import { Day } from './day/Day';
-import { Execution } from './execution/Execution';
+import { WorkoutExercise } from './execution/ExerciseExecution';
 import { Program } from './program/Program';
 
 export enum DataType {
@@ -11,4 +11,4 @@ export enum DataType {
 export type DataPayloadType =
   | { dataType: DataType.PROGRAM; data: Program[] }
   | { dataType: DataType.DAY; data: Day[] }
-  | { dataType: DataType.EXECUTION; data: Execution[] };
+  | { dataType: DataType.EXECUTION; data: WorkoutExercise[] };

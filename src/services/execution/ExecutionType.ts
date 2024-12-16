@@ -2,6 +2,7 @@ import { z } from 'zod';
 import { ExerciseSchema } from '../exercise/ExerciseType';
 
 export const ExecutionSetSchema = z.object({
+  index: z.number().optional(),
   reps: z.number(),
   weight: z.number().optional()
 });

@@ -2,30 +2,40 @@
   "name": "fit13",
   "version": "1.0.0",
   "main": "expo-router/entry",
+  "jest": {
+    "preset": "jest-expo",
+    "setupFilesAfterEnv": [
+      "@testing-library/jest-native/extend-expect"
+    ]
+  },
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "test": "jest"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.47.6",
     "dotenv": "^16.4.7",
     "expo": "~52.0.18",
+    "expo-constants": "~17.0.3",
+    "expo-linking": "~7.0.3",
     "expo-router": "4.0.11",
     "expo-status-bar": "~2.0.0",
     "postgres": "^3.4.5",
     "react": "18.3.1",
     "react-native": "0.76.5",
-    "zod": "^3.24.1",
     "react-native-safe-area-context": "4.12.0",
     "react-native-screens": "~4.1.0",
-    "expo-linking": "~7.0.3",
-    "expo-constants": "~17.0.3"
+    "zod": "^3.24.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
+    "@testing-library/jest-native": "^5.4.3",
+    "@testing-library/react-native": "^12.9.0",
+    "@types/jest": "^29.5.14",
     "@types/react": "^18.3.16",
     "@types/react-native": "^0.72.8",
     "@typescript-eslint/eslint-plugin": "^7.18.0",
@@ -36,7 +46,10 @@
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-react": "^7.37.2",
     "eslint-plugin-react-hooks": "^5.1.0",
+    "jest": "^29.7.0",
+    "jest-expo": "^52.0.2",
     "prettier": "^3.4.2",
+    "react-test-renderer": "^18.3.1",
     "typescript": "^5.7.2"
   },
   "private": true

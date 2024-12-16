@@ -1,8 +1,8 @@
 import { supabase } from '../../supabase/supabase';
-import { Execution } from './Execution';
 import { ExecutionResponseSchema, ExecutionSchema } from './ExecutionType';
+import { WorkoutExercise } from './ExerciseExecution';
 
-export async function getExecutions(): Promise<Execution[]> {
+export async function getExecutions(): Promise<WorkoutExercise[]> {
   try {
     const { data: executions, error: fetchError } = await supabase.from('execution').select(`
       *,
@@ -22,7 +22,7 @@ export async function getExecutions(): Promise<Execution[]> {
       if (!execution.success) {
         throw new Error(`Execution validation error: ${JSON.stringify(execution.error)}`);
       }
-      return new Execution(execution.data);
+      return new WorkoutExercise(execution.data);
     });
 
     return validatedExecutions;
