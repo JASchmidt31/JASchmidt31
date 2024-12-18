@@ -1,38 +1,55 @@
 import { useLocalSearchParams } from 'expo-router';
-import React, { useEffect, useState } from 'react';
-import { Dimensions, SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import React, { useEffect } from 'react';
+import { Dimensions, ListRenderItem, ListRenderItemInfo, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import useFetch from '../../src/hooks/useFetch';
+import useWorkoutSession from '../../src/hooks/useWorkoutSession';
 import { DataType } from '../../src/services/DataTypes';
-import { Set } from '../../src/services/execution/ExecutionSet';
-import { WorkoutExercise } from '../../src/services/execution/ExerciseExecution';
 import { useAppStore } from '../../src/store/AppStore';
+import { WorkoutExerciseSet } from '../../src/types/WorkoutExerciseSet';
 import Carousel from '../../src/ui/Carousel';
-import SetView from '../../src/ui/SetView';
+import WorkoutExerciseSetView from '../../src/ui/SetView';
 
 const DayDetails = () => {
-  const { id } = useLocalSearchParams(); // Get the dynamic ID from the URL
+  const { id } = useLocalSearchParams();
   const { fetchData } = useFetch();
   const { executions } = useAppStore();
-  const [activeIndex, setActiveIndex] = useState(0);
+  const { initializeState, activeSlideIndex, workoutSlides, activeIndex, finishExerciseSet } = useWorkoutSession();
 
   useEffect(() => {
     fetchData(DataType.EXECUTION);
   }, [fetchData]);
 
-  const renderExecutionSlide = ({ item }: { item: WorkoutExercise }) => {
+  useEffect(() => {
+    initializeState(executions.filter((e) => e.day === Number(id)));
+  }, [executions, id, initializeState]);
+
+  const renderWorkoutExerciseSlide: ListRenderItem<WorkoutExerciseSet[]> = ({ item }: ListRenderItemInfo<WorkoutExerciseSet[]>) => {
+    if (!item[0]) {
+      return null;
+    }
+    const exerciseID = item[0].exercise.id;
+    const exerciseName = item[0].exercise.name;
+
     return (
-      <View style={[styles.slide, { backgroundColor: '#958b95' }]}>
-        <Text>{item.exercise.name}</Text>
-        {item.sets.map((set: Set, index) => (
-          <SetView key={index} data={set} activeIndex={activeIndex} setActiveIndex={setActiveIndex} />
-        ))}
-      </View>
+      <>
+        <View key={exerciseID} style={styles.slide}>
+          <Text>{exerciseName}</Text>
+          {item.map((exercise: WorkoutExerciseSet, index: number) => (
+            <WorkoutExerciseSetView
+              key={exercise.index}
+              exerciseSet={exercise}
+              activeIndex={activeIndex}
+              finishExerciseSet={finishExerciseSet}
+            />
+          ))}
+        </View>
+      </>
     );
   };
 
   return (
     <SafeAreaView style={styles.container}>
-      <Carousel data={executions.filter((e) => e.day === Number(id))} renderItem={renderExecutionSlide} />
+      {workoutSlides && <Carousel data={Object.values(workoutSlides)} renderItem={renderWorkoutExerciseSlide} />}
     </SafeAreaView>
   );
 };

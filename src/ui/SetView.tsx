@@ -1,20 +1,23 @@
 import { Pressable, StyleSheet, Text } from 'react-native';
-import { Set } from '../services/execution/ExecutionSet';
+import { WorkoutExerciseSet } from '../types/WorkoutExerciseSet';
 import RoundedBox from './RoundedBox';
 
-interface SetViewProps {
-  data: Set;
+interface WorkoutExerciseSetViewProps {
+  exerciseSet: WorkoutExerciseSet;
   activeIndex: number;
-  setActiveIndex: React.Dispatch<React.SetStateAction<number>>;
+  finishExerciseSet: (exerciseSet: WorkoutExerciseSet) => void;
 }
 
-const SetView = ({ data, activeIndex, setActiveIndex }: SetViewProps) => {
+const WorkoutExerciseSetView = ({ exerciseSet, activeIndex, finishExerciseSet }: WorkoutExerciseSetViewProps) => {
+  const active = activeIndex === exerciseSet.order;
   let lastPress = 0;
 
   const handleDoublePress = () => {
     const time = new Date().getTime();
     if (time - lastPress < 300) {
-      setActiveIndex((prevIndex) => prevIndex + 1);
+      if (active) {
+        finishExerciseSet(exerciseSet);
+      }
     }
     lastPress = time;
   };
@@ -24,15 +27,15 @@ const SetView = ({ data, activeIndex, setActiveIndex }: SetViewProps) => {
   };
 
   return (
-    <RoundedBox isActive={activeIndex === data.index}>
+    <RoundedBox isActive={active}>
       <Pressable onPress={handleDoublePress} onLongPress={handleLongPress} delayLongPress={1200}>
-        <Text style={styles.slideText}>reps: {data.reps}</Text>
-        {data.weight && <Text style={styles.slideText}>weight: {data.weight}</Text>}
+        <Text style={styles.slideText}>reps: {exerciseSet.reps}</Text>
+        {exerciseSet.weight && <Text style={styles.slideText}>weight: {exerciseSet.weight}</Text>}
       </Pressable>
     </RoundedBox>
   );
 };
-export default SetView;
+export default WorkoutExerciseSetView;
 
 const styles = StyleSheet.create({
   slideText: {
