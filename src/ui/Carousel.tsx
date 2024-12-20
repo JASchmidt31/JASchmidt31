@@ -18,8 +18,6 @@ const Carousel = <T,>({ data, renderItem }: CarouselProps<T>) => {
     const index = Math.round(event.nativeEvent.contentOffset.x / width);
     setActiveIndex(index);
   };
-  console.log('activeIndex', activeIndex);
-  console.log('data', data);
   return (
     <View style={styles.container}>
       <FlatList

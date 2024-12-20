@@ -3,6 +3,17 @@ import { AppAction, AppActionType, AppStoreState } from './AppAction';
 
 export const AppReducer = (state: AppStoreState, action: AppAction): AppStoreState => {
   switch (action.type) {
+    case AppActionType.SAVE_WORKOUT_SESSION:
+      return {
+        ...state,
+        workoutSessionState: {
+          ...state.workoutSessionState,
+          [action.payload.dayID]: {
+            ...state.workoutSessionState[action.payload.dayID],
+            ...action.payload.workoutSessionState
+          }
+        }
+      };
     case AppActionType.SET_DATA:
       switch (action.payload.dataType) {
         case DataType.PROGRAM:

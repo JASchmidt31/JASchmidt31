@@ -4,8 +4,6 @@ import { SafeAreaView, StyleSheet } from 'react-native';
 import useFetch from '../src/hooks/useFetch';
 import { DataType } from '../src/services/DataTypes';
 import { useAppStore } from '../src/store/AppStore';
-import ErrorOverlay from '../src/ui/ErrorOverlay';
-import LoadingSpinner from '../src/ui/LoadingSpinner';
 import RectangleGrid from '../src/ui/RectangleGrid';
 
 export default function App() {
@@ -23,9 +21,6 @@ export default function App() {
 
   return (
     <>
-      <ErrorOverlay />
-      <LoadingSpinner />
-
       <SafeAreaView style={styles.container}>
         <RectangleGrid data={programs} onPress={handlePress} />
       </SafeAreaView>

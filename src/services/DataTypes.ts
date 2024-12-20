@@ -1,6 +1,6 @@
 import { Day } from './day/Day';
-import { WorkoutExercise } from './execution/ExerciseExecution';
 import { Program } from './program/Program';
+import { WorkoutExercise } from './workoutExercise/WorkoutExercise';
 
 export enum DataType {
   PROGRAM = 'PROGRAM',

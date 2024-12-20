@@ -1,3 +1,4 @@
+import { router } from 'expo-router';
 import { Pressable, StyleSheet, Text } from 'react-native';
 import { WorkoutExerciseSet } from '../types/WorkoutExerciseSet';
 import RoundedBox from './RoundedBox';
@@ -11,6 +12,8 @@ interface WorkoutExerciseSetViewProps {
 const WorkoutExerciseSetView = ({ exerciseSet, activeIndex, finishExerciseSet }: WorkoutExerciseSetViewProps) => {
   const active = activeIndex === exerciseSet.order;
   let lastPress = 0;
+  const dayID = exerciseSet.dayID;
+  const exerciseID = exerciseSet.exercise.id;
 
   const handleDoublePress = () => {
     const time = new Date().getTime();
@@ -23,7 +26,7 @@ const WorkoutExerciseSetView = ({ exerciseSet, activeIndex, finishExerciseSet }:
   };
 
   const handleLongPress = () => {
-    console.log(`Long pressed (3+ seconds) on set `);
+    router.push(`/edit/exercise/${dayID}/${exerciseID}`);
   };
 
   return (

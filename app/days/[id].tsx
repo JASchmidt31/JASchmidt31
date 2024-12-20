@@ -1,27 +1,21 @@
 import { useLocalSearchParams } from 'expo-router';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Dimensions, ListRenderItem, ListRenderItemInfo, SafeAreaView, StyleSheet, Text, View } from 'react-native';
-import useFetch from '../../src/hooks/useFetch';
 import useWorkoutSession from '../../src/hooks/useWorkoutSession';
-import { DataType } from '../../src/services/DataTypes';
 import { useAppStore } from '../../src/store/AppStore';
 import { WorkoutExerciseSet } from '../../src/types/WorkoutExerciseSet';
 import Carousel from '../../src/ui/Carousel';
-import WorkoutExerciseSetView from '../../src/ui/SetView';
+import LoadingSpinner from '../../src/ui/LoadingSpinner';
+import WorkoutExerciseSetView from '../../src/ui/WorkoutExerciseSetView';
 
 const DayDetails = () => {
   const { id } = useLocalSearchParams();
-  const { fetchData } = useFetch();
-  const { executions } = useAppStore();
-  const { initializeState, activeSlideIndex, workoutSlides, activeIndex, finishExerciseSet } = useWorkoutSession();
+  const { workoutSlides, activeIndex, finishExerciseSet, isInitialized } = useWorkoutSession(Array.isArray(id) ? id[0] : id);
+  const { isLoading } = useAppStore();
 
-  useEffect(() => {
-    fetchData(DataType.EXECUTION);
-  }, [fetchData]);
-
-  useEffect(() => {
-    initializeState(executions.filter((e) => e.day === Number(id)));
-  }, [executions, id, initializeState]);
+  if (isLoading || !isInitialized) {
+    return <LoadingSpinner />;
+  }
 
   const renderWorkoutExerciseSlide: ListRenderItem<WorkoutExerciseSet[]> = ({ item }: ListRenderItemInfo<WorkoutExerciseSet[]>) => {
     if (!item[0]) {

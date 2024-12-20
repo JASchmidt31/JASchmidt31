@@ -1,8 +1,8 @@
 import { useCallback } from 'react';
 import { DataType } from '../services/DataTypes';
 import { getDays } from '../services/day/DayService';
-import { getExecutions } from '../services/execution/ExecutionService';
 import { getPrograms } from '../services/program/ProgramService';
+import { getWorkoutExercisesByDayID } from '../services/workoutExercise/WorkoutExerciseService';
 import { AppActionType } from '../store/AppAction';
 import { useAppDispatch } from '../store/AppStore';
 
@@ -16,7 +16,7 @@ const useFetch = () => {
       case DataType.DAY:
         return getDays;
       case DataType.EXECUTION:
-        return getExecutions;
+        return getWorkoutExercisesByDayID;
       default:
         return null; // Return null for unsupported data types
     }

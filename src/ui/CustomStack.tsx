@@ -25,6 +25,12 @@ const CustomStack: React.FC = () => {
           return { title: day?.name || 'Trainigsday' };
         }}
       />
+      <Stack.Screen
+        name="edit/exercise/[dayID]/[exerciseID]"
+        options={{
+          title: 'Edit Workout Exercise'
+        }}
+      />
     </Stack>
   );
 };
