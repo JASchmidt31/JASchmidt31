@@ -1,8 +1,8 @@
-import { WorkoutSessionState } from '../hooks/useWorkoutSession';
 import { DataPayloadType } from '../services/DataTypes';
 import { Day } from '../services/day/Day';
 import { Program } from '../services/program/Program';
 import { WorkoutExercise } from '../services/workoutExercise/WorkoutExercise';
+import { WorkoutSessionState } from './useWorkoutSessionStore';
 
 export type AppAction =
   | { type: AppActionType.SET_DATA; payload: DataPayloadType }
