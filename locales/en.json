@@ -1,0 +1,14 @@
+{
+  "leg_press": "Leg Press",
+  "rowing_machine": "Rowing Machine",
+  "chest_press": "Chest Press",
+  "leg_extension": "Leg Extension",
+  "lat_pulldown": "Lat Pulldown",
+  "ab_crunch_machine": "Ab Crunch Machine",
+  "leg_curl": "Leg Curl",
+  "back_extension_machine": "Back Extension Machine",
+  "shoulder_press": "Shoulder Press",
+  "abduction_machine": "Abduction Machine",
+  "biceps_curl_machine": "Biceps Curl Machine",
+  "triceps_extension_machine": "Triceps Extension Machine"
+}

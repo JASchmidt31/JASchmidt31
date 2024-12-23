@@ -1,0 +1,14 @@
+{
+  "leg_press": "Beinpresse",
+  "rowing_machine": "Rudergerät",
+  "chest_press": "Brustpresse",
+  "leg_extension": "Beinstreckmaschine",
+  "lat_pulldown": "Lat-Zug",
+  "ab_crunch_machine": "Bauchpresse",
+  "leg_curl": "Beinbeuger",
+  "back_extension_machine": "Rückenstrecker",
+  "shoulder_press": "Schulterpresse",
+  "abduction_machine": "Abduktionsgerät",
+  "biceps_curl_machine": "Bizeps-Curl-Maschine",
+  "triceps_extension_machine": "Trizeps-Streckmaschine"
+}

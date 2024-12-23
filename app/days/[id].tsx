@@ -1,5 +1,6 @@
 import { useLocalSearchParams } from 'expo-router';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Dimensions, ListRenderItem, ListRenderItemInfo, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import useWorkoutSession from '../../src/hooks/useWorkoutSession';
 import { WorkoutExerciseSetRecord } from '../../src/types/WorkoutExerciseSet';
@@ -10,6 +11,7 @@ import WorkoutExerciseSetView from '../../src/ui/WorkoutExerciseSetView';
 const DayDetails = () => {
   const { id } = useLocalSearchParams();
   const { workoutSlides, activeIndex, finishExerciseSet, isInitialized } = useWorkoutSession(Array.isArray(id) ? id[0] : id);
+  const { t } = useTranslation();
 
   if (!isInitialized) {
     return <LoadingSpinner />;
@@ -27,7 +29,7 @@ const DayDetails = () => {
     return (
       <>
         <View key={exerciseID} style={styles.slide}>
-          <Text>{exerciseName}</Text>
+          <Text>{t(exerciseName)}</Text>
           {item.map((exercise: WorkoutExerciseSetRecord, index: number) => (
             <WorkoutExerciseSetView
               key={exercise.index}
