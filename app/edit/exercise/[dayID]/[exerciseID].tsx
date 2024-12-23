@@ -1,20 +1,20 @@
 import { useLocalSearchParams } from 'expo-router';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import useTheme from '../../../../src/hooks/useTheme';
 import useWorkoutSession from '../../../../src/hooks/useWorkoutSession';
 import ValueSelector from '../../../../src/ui/ValueSelector';
 
 const EditExercise: React.FC = () => {
   const { dayID, exerciseID } = useLocalSearchParams();
   const { isInitialized, workoutSlides, getExerciseSets, editExerciseSet } = useWorkoutSession(Array.isArray(dayID) ? dayID[0] : dayID);
+  const { colors } = useTheme();
 
   if (!isInitialized || !workoutSlides) return null;
   const workoutSets = getExerciseSets(Number(exerciseID));
-  const exerciseName = workoutSets[0].exercise.name;
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.exerciseName}>{exerciseName}</Text>
-      <View style={styles.valueContainer}>
+    <View style={[styles.container, { backgroundColor: colors.background }]}>
+      <View style={[styles.valueContainer]}>
         <ValueSelector
           min={1}
           max={100}
@@ -44,7 +44,6 @@ export default EditExercise;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ffff',
     padding: 16
   },
   valueContainer: {
@@ -53,7 +52,6 @@ const styles = StyleSheet.create({
   },
   exerciseName: {
     fontSize: 24,
-    color: '#eb0cf2',
     width: '100%',
     textAlign: 'center',
     marginBottom: 16

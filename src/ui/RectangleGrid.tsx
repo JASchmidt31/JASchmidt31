@@ -1,5 +1,6 @@
 import React from 'react';
 import { FlatList, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import useTheme from '../hooks/useTheme';
 
 interface RectangleGridProps {
   data: { id: number; name: string }[]; // Array of objects with name and id
@@ -7,40 +8,35 @@ interface RectangleGridProps {
 }
 
 const RectangleGrid: React.FC<RectangleGridProps> = ({ data, onPress }) => {
+  const { colors } = useTheme();
   const renderItem = ({ item }: { item: { id: number; name: string } }) => (
-    <TouchableOpacity style={styles.rectangle} onPress={() => onPress?.(item.id)} activeOpacity={0.8}>
-      <Text style={styles.text}>{item.name}</Text>
+    <TouchableOpacity
+      style={[styles.rectangle, { backgroundColor: colors.primary }]}
+      onPress={() => onPress?.(item.id)}
+      activeOpacity={0.8}
+    >
+      <Text style={[styles.text, { color: colors.text }]}>{item.name}</Text>
     </TouchableOpacity>
   );
 
-  return (
-    <FlatList
-      data={data}
-      keyExtractor={(item) => item.id.toString()}
-      renderItem={renderItem}
-      numColumns={2} // Two columns for side-by-side rectangles
-      contentContainerStyle={styles.grid}
-    />
-  );
+  return <FlatList data={data} keyExtractor={(item) => item.id.toString()} renderItem={renderItem} contentContainerStyle={styles.grid} />;
 };
 
 const styles = StyleSheet.create({
   grid: {
-    padding: 10
+    padding: '10%'
   },
   rectangle: {
-    width: '45%', // Adjust the percentage to control the rectangle width
-    aspectRatio: 1.5, // Maintains the consistent height-to-width ratio
-    backgroundColor: '#4CAF50',
-    margin: 5,
+    width: '80%',
+    aspectRatio: 4.0,
+    margin: '5%',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 8,
-    elevation: 3 // Adds a subtle shadow
+    elevation: 3
   },
   text: {
     fontSize: 16,
-    color: '#fff',
     fontWeight: 'bold'
   }
 });

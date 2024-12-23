@@ -1,5 +1,6 @@
 import React from 'react';
 import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import useTheme from '../hooks/useTheme';
 
 interface ValueSelectorProps {
   min: number;
@@ -11,6 +12,7 @@ interface ValueSelectorProps {
 
 const ValueSelector: React.FC<ValueSelectorProps> = ({ min, max, step, initialValue, setValue }) => {
   const [value, setLocalValue] = React.useState(initialValue);
+  const { colors } = useTheme();
 
   const incrementValue = () => {
     const newValue = Math.min(value + step, max);
@@ -26,14 +28,14 @@ const ValueSelector: React.FC<ValueSelectorProps> = ({ min, max, step, initialVa
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.button} onPress={incrementValue}>
-        <Text style={styles.buttonText}>+</Text>
+      <TouchableOpacity style={[styles.button, { backgroundColor: colors.primary }]} onPress={incrementValue}>
+        <Text style={[styles.buttonText, { color: colors.text }]}>+</Text>
       </TouchableOpacity>
       <View style={styles.valueContainer}>
         <Text style={styles.valueText}>{value}</Text>
       </View>
-      <TouchableOpacity style={styles.button} onPress={decrementValue}>
-        <Text style={styles.buttonText}>-</Text>
+      <TouchableOpacity style={[styles.button, { backgroundColor: colors.primary }]} onPress={decrementValue}>
+        <Text style={[styles.buttonText, { color: colors.text }]}>-</Text>
       </TouchableOpacity>
     </View>
   );
@@ -50,7 +52,6 @@ const styles = StyleSheet.create({
     borderRadius: 12
   },
   button: {
-    backgroundColor: '#4CAF50',
     width: '100%',
     paddingVertical: 10,
     borderRadius: 8,
@@ -58,7 +59,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   buttonText: {
-    color: '#fff',
     fontSize: 22,
     fontWeight: 'bold'
   },

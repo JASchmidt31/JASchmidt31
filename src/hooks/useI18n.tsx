@@ -23,6 +23,7 @@ const useI18n = () => {
       initialized = true;
     }
   }, []);
+  return i18n;
 };
 
 export default useI18n;

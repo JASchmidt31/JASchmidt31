@@ -47,7 +47,8 @@ const useWorkoutSessionStore = create<WorkoutSessionStore>((set, get) => ({
 
     set({
       state: { activeIndex: 0, workoutSlides },
-      isInitialized: true
+      isInitialized: true,
+      isAppStoreUpdateRequired: true
     });
   },
   recoverState: (payload: Partial<WorkoutSessionState>) => {

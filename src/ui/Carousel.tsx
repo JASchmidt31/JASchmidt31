@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { Animated, Dimensions, FlatList, ListRenderItem, StyleSheet, View } from 'react-native';
+import useTheme from '../hooks/useTheme';
 
 const { width } = Dimensions.get('window');
 
@@ -11,6 +12,7 @@ interface CarouselProps<T> {
 const Carousel = <T,>({ data, renderItem }: CarouselProps<T>) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const scrollX = useRef(new Animated.Value(0)).current;
+  const { colors } = useTheme();
 
   const onScroll = Animated.event([{ nativeEvent: { contentOffset: { x: scrollX } } }], { useNativeDriver: false });
 
@@ -38,7 +40,7 @@ const Carousel = <T,>({ data, renderItem }: CarouselProps<T>) => {
             extrapolate: 'clamp'
           });
 
-          return <Animated.View key={index.toString()} style={[styles.dot, { width: dotWidth }]} />;
+          return <Animated.View key={index.toString()} style={[styles.dot, { width: dotWidth, backgroundColor: colors.primary }]} />;
         })}
       </View>
     </View>

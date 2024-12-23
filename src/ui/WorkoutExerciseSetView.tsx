@@ -1,5 +1,6 @@
 import { router } from 'expo-router';
 import { Pressable, StyleSheet, Text } from 'react-native';
+import useTheme from '../hooks/useTheme';
 import { WorkoutExerciseSetRecord } from '../types/WorkoutExerciseSet';
 import RoundedBox from './RoundedBox';
 
@@ -14,6 +15,7 @@ const WorkoutExerciseSetView = ({ exerciseSet, activeIndex, finishExerciseSet }:
   let lastPress = 0;
   const dayID = exerciseSet.dayID;
   const exerciseID = exerciseSet.exercise.id;
+  const { colors } = useTheme();
 
   const handleDoublePress = () => {
     const time = new Date().getTime();
@@ -32,8 +34,8 @@ const WorkoutExerciseSetView = ({ exerciseSet, activeIndex, finishExerciseSet }:
   return (
     <RoundedBox isActive={active}>
       <Pressable onPress={handleDoublePress} onLongPress={handleLongPress} delayLongPress={1200}>
-        <Text style={styles.slideText}>reps: {exerciseSet.reps}</Text>
-        {exerciseSet.weight && <Text style={styles.slideText}>weight: {exerciseSet.weight}</Text>}
+        <Text style={[styles.slideText, { color: colors.text }]}>reps: {exerciseSet.reps}</Text>
+        {exerciseSet.weight && <Text style={[styles.slideText, { color: colors.text }]}>weight: {exerciseSet.weight}</Text>}
       </Pressable>
     </RoundedBox>
   );
@@ -42,7 +44,6 @@ export default WorkoutExerciseSetView;
 
 const styles = StyleSheet.create({
   slideText: {
-    fontSize: 24,
-    color: '#eb0cf2'
+    fontSize: 24
   }
 });

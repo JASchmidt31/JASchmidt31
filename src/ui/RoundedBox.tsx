@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
+import useTheme from '../hooks/useTheme';
 
 interface RoundedBoxProps {
   isActive: boolean;
@@ -7,9 +8,10 @@ interface RoundedBoxProps {
 }
 
 const RoundedBox: React.FC<RoundedBoxProps> = ({ isActive, children }) => {
+  const { colors } = useTheme();
   return (
     <View style={(styles.container, !isActive && styles.opaque)}>
-      <View style={styles.box}>{children}</View>
+      <View style={[styles.box, { backgroundColor: colors.primary, borderColor: colors.primary }]}>{children}</View>
     </View>
   );
 };
@@ -28,9 +30,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 2, // Stärke des Rahmens
-    borderColor: '#eb0cf2', // Farbe des Rahmens
     borderRadius: 20, // Rundheit der Ecken
-    backgroundColor: '#3b363b', // Hintergrundfarbe
     marginBottom: 10
   },
   opaque: {
