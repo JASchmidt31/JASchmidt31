@@ -1,11 +1,11 @@
-import { DayData } from './DayType';
+import { DayData as TrainingDayData } from './TrainingDayType';
 
-export class Day {
+export class TrainingDay {
   id: number;
   name: string;
   program: number;
 
-  constructor(data: DayData) {
+  constructor(data: TrainingDayData) {
     this.id = data.id;
     this.name = data.name;
     this.program = data.program;

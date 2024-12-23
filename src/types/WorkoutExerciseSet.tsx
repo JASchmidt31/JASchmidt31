@@ -1,6 +1,6 @@
 import { Exercise } from '../services/exercise/Exercise';
 
-export type WorkoutExerciseSet = {
+export type WorkoutExerciseSetRecord = {
   exercise: Exercise;
   dayID: number;
   index: number;

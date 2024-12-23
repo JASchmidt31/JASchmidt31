@@ -1,6 +1,6 @@
 import { supabase } from '../../supabase/supabase';
-import { WorkoutExerciseResponseSchema, WorkoutExerciseSchema } from './ExecutionType';
 import { WorkoutExercise } from './WorkoutExercise';
+import { WorkoutExerciseResponseSchema, WorkoutExerciseSchema } from './WorkoutExerciseType';
 
 export async function getWorkoutExercisesByDayID(dayID: string): Promise<WorkoutExercise[]> {
   try {

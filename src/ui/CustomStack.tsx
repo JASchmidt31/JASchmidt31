@@ -1,8 +1,13 @@
 import { Stack } from 'expo-router';
-import { useAppStore } from '../store/AppStore';
+import { useTrainingDays } from '../hooks/useTrainingDays';
+import useTrainingPrograms from '../hooks/useTrainingPrograms';
+import LoadingSpinner from './LoadingSpinner';
 
 const CustomStack: React.FC = () => {
-  const { programs, days } = useAppStore();
+  const { data: programs } = useTrainingPrograms();
+  const { data: days } = useTrainingDays('1');
+
+  if (!programs || !days) return <LoadingSpinner />;
 
   return (
     <Stack>

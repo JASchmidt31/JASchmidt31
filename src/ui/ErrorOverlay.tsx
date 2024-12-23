@@ -1,23 +1,13 @@
 import React from 'react';
 import { Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { AppActionType } from '../store/AppAction';
-import { useAppDispatch, useAppStore } from '../store/AppStore';
 
-const ErrorOverlay: React.FC = () => {
-  const dispatch = useAppDispatch();
-  const { error } = useAppStore();
-  if (!error) return null; // Render nothing if there's no error
-
-  const handleOkPress = () => {
-    dispatch({ type: AppActionType.SET_ERROR, payload: { error: null } }); // Reset the error
-  };
-
+const ErrorOverlay = ({ error }: { error: string }) => {
   return (
     <Modal transparent={true} animationType="fade" visible={!!error}>
       <View style={styles.overlay}>
         <View style={styles.container}>
           <Text style={styles.message}>{error}</Text>
-          <TouchableOpacity style={styles.button} onPress={handleOkPress}>
+          <TouchableOpacity style={styles.button}>
             <Text style={styles.buttonText}>OK</Text>
           </TouchableOpacity>
         </View>

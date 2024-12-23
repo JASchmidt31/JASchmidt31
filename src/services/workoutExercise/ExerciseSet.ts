@@ -1,11 +1,11 @@
-import { ExerciseSetData } from './ExecutionType';
+import { ExerciseSetData as WorkoutExerciseSetData } from './WorkoutExerciseType';
 
-export class ExerciseSet {
+export class WorkoutExerciseSet {
   index: number;
   reps: number;
   weight?: number;
 
-  constructor(data: ExerciseSetData, index: number) {
+  constructor(data: WorkoutExerciseSetData, index: number) {
     this.index = index;
     this.reps = data.reps;
     this.weight = data.weight;

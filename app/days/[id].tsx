@@ -2,8 +2,7 @@ import { useLocalSearchParams } from 'expo-router';
 import React from 'react';
 import { Dimensions, ListRenderItem, ListRenderItemInfo, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import useWorkoutSession from '../../src/hooks/useWorkoutSession';
-import { useAppStore } from '../../src/store/AppStore';
-import { WorkoutExerciseSet } from '../../src/types/WorkoutExerciseSet';
+import { WorkoutExerciseSetRecord } from '../../src/types/WorkoutExerciseSet';
 import Carousel from '../../src/ui/Carousel';
 import LoadingSpinner from '../../src/ui/LoadingSpinner';
 import WorkoutExerciseSetView from '../../src/ui/WorkoutExerciseSetView';
@@ -11,13 +10,14 @@ import WorkoutExerciseSetView from '../../src/ui/WorkoutExerciseSetView';
 const DayDetails = () => {
   const { id } = useLocalSearchParams();
   const { workoutSlides, activeIndex, finishExerciseSet, isInitialized } = useWorkoutSession(Array.isArray(id) ? id[0] : id);
-  const { isLoading } = useAppStore();
 
-  if (isLoading || !isInitialized) {
+  if (!isInitialized) {
     return <LoadingSpinner />;
   }
 
-  const renderWorkoutExerciseSlide: ListRenderItem<WorkoutExerciseSet[]> = ({ item }: ListRenderItemInfo<WorkoutExerciseSet[]>) => {
+  const renderWorkoutExerciseSlide: ListRenderItem<WorkoutExerciseSetRecord[]> = ({
+    item
+  }: ListRenderItemInfo<WorkoutExerciseSetRecord[]>) => {
     if (!item[0]) {
       return null;
     }
@@ -28,7 +28,7 @@ const DayDetails = () => {
       <>
         <View key={exerciseID} style={styles.slide}>
           <Text>{exerciseName}</Text>
-          {item.map((exercise: WorkoutExerciseSet, index: number) => (
+          {item.map((exercise: WorkoutExerciseSetRecord, index: number) => (
             <WorkoutExerciseSetView
               key={exercise.index}
               exerciseSet={exercise}

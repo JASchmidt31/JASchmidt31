@@ -1,12 +1,12 @@
 import { router } from 'expo-router';
 import { Pressable, StyleSheet, Text } from 'react-native';
-import { WorkoutExerciseSet } from '../types/WorkoutExerciseSet';
+import { WorkoutExerciseSetRecord } from '../types/WorkoutExerciseSet';
 import RoundedBox from './RoundedBox';
 
 interface WorkoutExerciseSetViewProps {
-  exerciseSet: WorkoutExerciseSet;
+  exerciseSet: WorkoutExerciseSetRecord;
   activeIndex: number;
-  finishExerciseSet: (exerciseSet: WorkoutExerciseSet) => void;
+  finishExerciseSet: (exerciseSet: WorkoutExerciseSetRecord) => void;
 }
 
 const WorkoutExerciseSetView = ({ exerciseSet, activeIndex, finishExerciseSet }: WorkoutExerciseSetViewProps) => {

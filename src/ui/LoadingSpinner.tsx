@@ -1,11 +1,7 @@
 import React from 'react';
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
-import { useAppStore } from '../store/AppStore';
 
-const LoadingSpinner: React.FC = () => {
-  const { isLoading } = useAppStore();
-  if (!isLoading) return null; // Render nothing if not loading
-
+const LoadingSpinner = () => {
   return (
     <View style={styles.overlay}>
       <ActivityIndicator size="large" color="#007BFF" />

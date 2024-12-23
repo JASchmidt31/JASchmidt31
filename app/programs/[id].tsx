@@ -1,20 +1,20 @@
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
-import useFetch from '../../src/hooks/useFetch';
-import { DataType } from '../../src/services/DataTypes';
-import { useAppStore } from '../../src/store/AppStore';
+import { useTrainingDays } from '../../src/hooks/useTrainingDays';
+import ErrorOverlay from '../../src/ui/ErrorOverlay';
+import LoadingSpinner from '../../src/ui/LoadingSpinner';
 import RectangleGrid from '../../src/ui/RectangleGrid';
 
 const ProgramDetails = () => {
-  const { id } = useLocalSearchParams(); // Get the dynamic ID from the URL
-  const { fetchData } = useFetch();
-  const { days } = useAppStore();
+  const { id } = useLocalSearchParams();
+  const programID = Array.isArray(id) ? id[0] : id;
   const router = useRouter();
+  const { data: days, isLoading, isError } = useTrainingDays(programID);
 
-  useEffect(() => {
-    fetchData(DataType.DAY);
-  }, [fetchData]);
+  if (isError) return ErrorOverlay;
+
+  if (isLoading || !days) return LoadingSpinner;
 
   const handlePress = (id: number) => {
     router.push(`/days/${id}`);
@@ -22,7 +22,7 @@ const ProgramDetails = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <RectangleGrid data={days.filter((d) => d.program === Number(id))} onPress={handlePress} />
+      <RectangleGrid data={days.filter((d) => d.program === Number(programID))} onPress={handlePress} />
     </SafeAreaView>
   );
 };

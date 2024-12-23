@@ -1,10 +1,10 @@
 import { supabase } from '../../supabase/supabase';
-import { Day } from './Day';
-import { DayResponseSchema, DaySchema } from './DayType';
+import { TrainingDay } from '../trainingDay/TrainingDay';
+import { DayResponseSchema, DaySchema } from '../trainingDay/TrainingDayType';
 
-export async function getDays(): Promise<Day[]> {
+export async function getDaysByProgramID(programID: string): Promise<TrainingDay[]> {
   try {
-    const { data: days, error: fetchError } = await supabase.from('day').select();
+    const { data: days, error: fetchError } = await supabase.from('day').select('*').eq('program', programID);
     if (fetchError) {
       throw new Error(`Database fetch error: ${fetchError.message}`);
     }
@@ -18,7 +18,7 @@ export async function getDays(): Promise<Day[]> {
       if (!day.success) {
         throw new Error(`Day validation error: ${JSON.stringify(day.error)}`);
       }
-      return new Day(day.data);
+      return new TrainingDay(day.data);
     });
 
     return validatedDays;

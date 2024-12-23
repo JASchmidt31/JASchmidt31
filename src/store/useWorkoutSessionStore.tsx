@@ -1,10 +1,10 @@
 import { create } from 'zustand';
 import { WorkoutExercise } from '../services/workoutExercise/WorkoutExercise';
-import { WorkoutExerciseSet } from '../types/WorkoutExerciseSet';
+import { WorkoutExerciseSetRecord } from '../types/WorkoutExerciseSet';
 
 export interface WorkoutSessionState {
   activeIndex: number;
-  workoutSlides: Record<number, WorkoutExerciseSet[]>;
+  workoutSlides: Record<number, WorkoutExerciseSetRecord[]>;
 }
 
 interface WorkoutSessionStore {
@@ -13,7 +13,7 @@ interface WorkoutSessionStore {
   isAppStoreUpdateRequired: boolean;
   initializeSets: (workoutExercises: WorkoutExercise[]) => void;
   recoverState: (payload: Partial<WorkoutSessionState>) => void;
-  finishExerciseSet: (exerciseSet: WorkoutExerciseSet) => void;
+  finishExerciseSet: (exerciseSet: WorkoutExerciseSetRecord) => void;
   editExerciseSet: (exerciseID: number, reps: number, weight: number) => void;
 }
 
@@ -26,11 +26,11 @@ const useWorkoutSessionStore = create<WorkoutSessionStore>((set, get) => ({
   isAppStoreUpdateRequired: false,
   initializeSets: (workoutExercises: WorkoutExercise[]) => {
     let order = 0;
-    const workoutSlides: Record<number, WorkoutExerciseSet[]> = {};
+    const workoutSlides: Record<number, WorkoutExerciseSetRecord[]> = {};
 
     workoutExercises.forEach((exercise) => {
       exercise.sets.forEach((set) => {
-        const workoutSet: WorkoutExerciseSet = {
+        const workoutSet: WorkoutExerciseSetRecord = {
           exercise: exercise.exercise,
           dayID: exercise.day,
           index: set.index,
@@ -56,7 +56,7 @@ const useWorkoutSessionStore = create<WorkoutSessionStore>((set, get) => ({
       isInitialized: true
     });
   },
-  finishExerciseSet: (exerciseSet: WorkoutExerciseSet) => {
+  finishExerciseSet: (exerciseSet: WorkoutExerciseSetRecord) => {
     const { state } = get();
     const updatedSlides = { ...state.workoutSlides };
     const exerciseID = exerciseSet.exercise.id;

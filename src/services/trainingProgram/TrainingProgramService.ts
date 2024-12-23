@@ -1,8 +1,8 @@
 import { supabase } from '../../supabase/supabase';
-import { Program } from './Program';
-import { ProgramResponseSchema, ProgramSchema } from './ProgramType';
+import { TrainingProgram } from './TrainingProgram';
+import { ProgramResponseSchema, ProgramSchema } from './TraininigProgramType';
 
-export async function getPrograms(): Promise<Program[]> {
+export async function getTrainingPrograms(): Promise<TrainingProgram[]> {
   try {
     const { data: programs, error: fetchError } = await supabase.from('program').select();
     if (fetchError) {
@@ -18,7 +18,7 @@ export async function getPrograms(): Promise<Program[]> {
       if (!program.success) {
         throw new Error(`Program validation error: ${JSON.stringify(program.error)}`);
       }
-      return new Program(program.data);
+      return new TrainingProgram(program.data);
     });
 
     return validatedPrograms;
@@ -28,7 +28,7 @@ export async function getPrograms(): Promise<Program[]> {
   }
 }
 
-export async function getProgramByID(id: string): Promise<Program> {
+export async function getProgramByID(id: string): Promise<TrainingProgram> {
   try {
     const { data: programs, error: fetchError } = await supabase.from('program').select('*').eq('id', id).single();
     if (fetchError) {
@@ -38,7 +38,7 @@ export async function getProgramByID(id: string): Promise<Program> {
     if (!response.success) {
       throw new Error(`Response validation error: ${JSON.stringify(response.error)}`);
     }
-    return new Program(response.data);
+    return new TrainingProgram(response.data);
   } catch (error) {
     console.error(`Error in getPrograms: ${error instanceof Error ? error.message : error}`);
     throw error;

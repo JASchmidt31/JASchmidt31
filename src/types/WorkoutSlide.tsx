@@ -1,3 +1,3 @@
-import { WorkoutExerciseSet } from './WorkoutExerciseSet';
+import { WorkoutExerciseSetRecord } from './WorkoutExerciseSet';
 
-export type WorkoutSlide = { [exerciseID: number]: WorkoutExerciseSet[] };
+export type WorkoutSlide = { [exerciseID: number]: WorkoutExerciseSetRecord[] };
